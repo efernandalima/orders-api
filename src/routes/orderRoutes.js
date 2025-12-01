@@ -16,8 +16,7 @@ function mapToOrder(body) {
     }))
   };
 }
-
-// Endpoint de criação de pedido
+// POST – Criar um pedido
 router.post("/order", async (req, res) => {
   try {
     const mappedOrder = mapToOrder(req.body);
@@ -27,6 +26,33 @@ router.post("/order", async (req, res) => {
   } catch (error) {
     console.error(" Erro ao criar pedido:", error.message);
     return res.status(400).json({ error: error.message });
+  }
+});
+// GET – Buscar pedido pelo orderId
+router.get("/order/:orderId", async (req, res) => {
+  try {
+    const { orderId } = req.params;
+
+    const order = await Order.findOne({ orderId });
+
+    if (!order) {
+      return res.status(404).json({ message: "Pedido não encontrado" });
+    }
+
+    return res.status(200).json(order);
+  } catch (error) {
+    console.error(" Erro ao buscar pedido:", error.message);
+    return res.status(500).json({ error: error.message });
+  }
+});
+// GET – Listar todos os pedidos
+router.get("/order/list", async (req, res) => {
+  try {
+    const orders = await Order.find();
+    return res.status(200).json(orders);
+  } catch (error) {
+    console.error(" Erro ao listar pedidos:", error.message);
+    return res.status(500).json({ error: error.message });
   }
 });
 
