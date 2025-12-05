@@ -41,7 +41,7 @@ package.json
 ### 1️⃣ Clonar o repositório
 
 ```
-git clone https://github.com/<seu-usuario>/orders-api.git
+git clone https://github.com/efernandalima/orders-api.git
 cd orders-api
 ```
 
